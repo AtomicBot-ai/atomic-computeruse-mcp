@@ -1,0 +1,32 @@
+{
+  "name": "@atomicbotai/computer-use-mcp",
+  "version": "0.1.0",
+  "description": "MCP server exposing desktop computer-use as an MCP tool",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "computer-use-mcp": "./dist/bin.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/bin.js",
+    "release": "./release.sh",
+    "publish:npm": "./publish.sh",
+    "publish:dry": "./publish.sh --dry-run"
+  },
+  "dependencies": {
+    "@atomicbotai/computer-use": "^0.1.5",
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
