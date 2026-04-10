@@ -141,7 +141,7 @@ All configuration via environment variables:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `COMPUTER_USE_OVERLAY_ENABLED` | `1` | Set to `0` to disable the "agent active" overlay |
-| `COMPUTER_USE_OVERLAY_COLOR` | `AEFF00` | Overlay color (hex without `#`) |
+| `COMPUTER_USE_OVERLAY_COLOR` | `00BFFF` | Overlay color (hex without `#`) |
 | `COMPUTER_USE_OVERLAY_LABEL` | `Atomic bot` | Text shown on the overlay |
 | `COMPUTER_USE_DEBUG_ARTIFACTS` | `0` | Set to `1` to save screenshots, OCR, and results per action |
 | `COMPUTER_USE_DEBUG_DIR` | `./computer-use-debug` | Directory for debug output |
