@@ -2,7 +2,7 @@
 
 **Give your AI agent real eyes — not just blurry screenshots.**
 
-An MCP server that turns any MCP-compatible client (Claude, Cursor, Windsurf, custom agents) into a desktop operator — with native OCR that actually reads what's on screen.
+An MCP server that turns any MCP-compatible client into a desktop operator — with native OCR that actually reads what's on screen.
 
 [![npm](https://img.shields.io/npm/v/@atomicbotai/computer-use-mcp)](https://www.npmjs.com/package/@atomicbotai/computer-use-mcp)
 [![license](https://img.shields.io/npm/l/@atomicbotai/computer-use-mcp)](./LICENSE)
@@ -72,28 +72,9 @@ npm install -g @atomicbotai/computer-use-mcp
 computer-use-mcp
 ```
 
-## Connect to Claude Desktop
+## Connect to your MCP client
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "computer-use": {
-      "command": "npx",
-      "args": ["@atomicbotai/computer-use-mcp"],
-      "env": {
-        "COMPUTER_USE_OVERLAY_ENABLED": "1",
-        "COMPUTER_USE_OVERLAY_LABEL": "Claude"
-      }
-    }
-  }
-}
-```
-
-## Connect to Cursor
-
-Add to `.cursor/mcp.json`:
+Add the following to your MCP client's config file (Claude Desktop, Cursor, Windsurf, Cline, or any other MCP-compatible client):
 
 ```json
 {
@@ -103,12 +84,13 @@ Add to `.cursor/mcp.json`:
       "args": ["@atomicbotai/computer-use-mcp"],
       "env": {
         "COMPUTER_USE_OVERLAY_ENABLED": "1",
-        "COMPUTER_USE_OVERLAY_LABEL": "Cursor"
+        "COMPUTER_USE_OVERLAY_LABEL": "AI Agent"
       }
     }
   }
 }
 ```
+
 
 ## All 19 actions
 
