@@ -60,6 +60,7 @@ export function createServer(): Server {
 
     const args = (request.params.arguments ?? {}) as Record<string, unknown>;
     const toolCallId = `mcp-${Date.now()}`;
+
     const result = await tool.execute(toolCallId, args);
 
     return {
