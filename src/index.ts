@@ -1,5 +1,9 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
 import { createComputerTool, type ComputerToolOptions } from "@atomicbotai/computer-use";
 
 function readOptionsFromEnv(): ComputerToolOptions {
@@ -31,40 +35,49 @@ function readOptionsFromEnv(): ComputerToolOptions {
   return opts;
 }
 
-export function createServer(): McpServer {
+export function createServer(): Server {
   const tool = createComputerTool(readOptionsFromEnv());
 
-  const server = new McpServer({
-    name: "computer-use",
-    version: "0.1.0",
-  });
-
-  server.tool(
-    tool.name,
-    tool.description,
-    tool.schema,
-    async (params) => {
-      const args = params as Record<string, unknown>;
-      const toolCallId = `mcp-${Date.now()}`;
-      const result = await tool.execute(toolCallId, args);
-
-      return {
-        content: result.content.map((item) => {
-          if (item.type === "image") {
-            return {
-              type: "image" as const,
-              data: item.data,
-              mimeType: item.mimeType,
-            };
-          }
-          return {
-            type: "text" as const,
-            text: item.text,
-          };
-        }),
-      };
-    },
+  const server = new Server(
+    { name: "computer-use", version: "0.1.0" },
+    { capabilities: { tools: {} } },
   );
+
+  server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    tools: [
+      {
+        name: tool.name,
+        description: tool.description,
+        inputSchema: tool.schema as Record<string, unknown>,
+      },
+    ],
+  }));
+
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    if (request.params.name !== tool.name) {
+      throw new Error(`Unknown tool: ${request.params.name}`);
+    }
+
+    const args = (request.params.arguments ?? {}) as Record<string, unknown>;
+    const toolCallId = `mcp-${Date.now()}`;
+    const result = await tool.execute(toolCallId, args);
+
+    return {
+      content: result.content.map((item) => {
+        if (item.type === "image") {
+          return {
+            type: "image" as const,
+            data: item.data,
+            mimeType: item.mimeType,
+          };
+        }
+        return {
+          type: "text" as const,
+          text: item.text,
+        };
+      }),
+    };
+  });
 
   return server;
 }
