@@ -19,7 +19,7 @@
     "publish:dry": "./publish.sh --dry-run"
   },
   "dependencies": {
-    "@atomicbotai/computer-use": "^0.1.8",
+    "@atomicbotai/computer-use": "^0.1.9",
     "@modelcontextprotocol/sdk": "^1.12.1"
   },
   "devDependencies": {
