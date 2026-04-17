@@ -1,6 +1,6 @@
 {
   "name": "@atomicbotai/computer-use-mcp",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "MCP server exposing desktop computer-use as an MCP tool",
   "type": "module",
   "main": "./dist/index.js",
